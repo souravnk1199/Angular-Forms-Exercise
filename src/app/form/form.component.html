@@ -1,0 +1,52 @@
+<form (ngSubmit)="onSubmit()" class="ui form myform" [formGroup]="addressForm">
+  <h2 class="ui dividing header">Enter Details</h2>
+  <div class="two fields">
+    <div class="field">
+      <app-input [label]="'First Name'" [control]="getControl('firstname')"></app-input>
+    </div>
+    <div class="field">
+      <app-input [label]="'Last Name'" [control]="getControl('lastname')"></app-input>
+    </div>
+  </div>
+  <div class="two fields">
+    <div class="field required">
+      <label>State</label>
+      <select
+        class="ui search dropdown"
+        [formControl]="getControl('state')"
+        (change)="getCityService()"
+      >
+        <option value="">Select a State</option>
+        <option *ngFor="let state of states" [value]="state">
+          {{ state }}
+        </option>
+      </select>
+      <div
+        *ngIf="getControl('state').invalid && getControl('state').touched"
+        class="ui pointing red basic label"
+      >
+        Please Select a State
+      </div>
+    </div>
+    <div class="field">
+      <label>City</label>
+      <select class="ui search dropdown" [formControl]="getControl('city')">
+        <option value="">Select a City</option>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <app-input [label]="'Zip Code'" [control]="getControl('zipcode')"></app-input>
+  </div>
+
+  <button class="ui button" [disabled]="addressForm.invalid">Submit</button>
+</form>
+
+<div *ngIf="showData" class="result">
+  <p>Name: {{formData.firstname}} {{formData.lastname}}</p>
+  <p>State: {{formData.state}}</p>
+  <p>City: {{formData.city}}</p>
+  <p>ZipCode: {{formData.zipcode}}</p>
+</div>

@@ -1,0 +1,11 @@
+<div class="field required">
+  <label>{{ label }}</label>
+  <input type="text" [placeholder]="label" [formControl]="control" />
+  <div
+    *ngIf="control.invalid && control.touched"
+    class="ui pointing red basic label"
+  >
+    <p *ngIf="control.errors?.['required']">Please Enter {{label}}</p>
+    <p *ngIf="control.errors?.['pattern']">Please Enter a Valid ZipCode</p>
+  </div>
+</div>
